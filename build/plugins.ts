@@ -26,7 +26,9 @@ export function getPluginsList(
     VueI18nPlugin({
       runtimeOnly: true,
       compositionOnly: true,
-      include: [pathResolve("../locales/**")]
+      include: [
+        pathResolve(process.env.FARM_FE ? "./locales/**" : "../locales/**")
+      ]
     }),
     viteBuildInfo(),
     /**
@@ -54,7 +56,9 @@ export function getPluginsList(
     VITE_CDN ? cdn : null,
     configCompressPlugin(VITE_COMPRESSION),
     // 线上环境删除console
-    removeConsole({ external: ["src/assets/iconfont/iconfont.js"] }),
+    process.env.FARM_FE
+      ? null
+      : removeConsole({ external: ["src/assets/iconfont/iconfont.js"] }),
     // 打包分析
     lifecycle === "report"
       ? visualizer({ open: true, brotliSize: true, filename: "report.html" })
