@@ -10,9 +10,6 @@ import {
 } from "./build/utils";
 import postcss from "@farmfe/js-plugin-postcss";
 import sass from "@farmfe/js-plugin-sass";
-import module from "module";
-
-const require = module.createRequire(import.meta.url);
 
 export default ({ mode }: ConfigEnv): UserConfigExport => {
   const { VITE_CDN, VITE_PORT, VITE_COMPRESSION, VITE_PUBLIC_PATH } =
@@ -65,8 +62,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
     },
     plugins: [
       sass({
-        legacy: true,
-        implementation: require("sass")
+        legacy: true
       }),
       // '@farmfe/plugin-sass',
       postcss(),
